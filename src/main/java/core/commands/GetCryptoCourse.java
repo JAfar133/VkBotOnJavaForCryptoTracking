@@ -30,10 +30,11 @@ public class GetCryptoCourse extends Command implements ServiceCommand {
         cp.setCryptoPrice(cp.getCryptoPrices());
         cp.setCryptoChanges(cp.getCryptoChanges());
         cl = cp.getCryptoList();
-        new VKManager().sendMessage(onlyHour.format(date)+"\n", message.getUserId());
+        new VKManager().sendMessage(onlyHour.format(date)+"\n");
         for (Crypto crypto: cl.getList()) {
-            new VKManager().sendMessage(getCrypto(crypto.getTiket()), message.getUserId());
+            new VKManager().sendMessage(getCrypto(crypto.getTiket()));
         }
+
 
     }
 

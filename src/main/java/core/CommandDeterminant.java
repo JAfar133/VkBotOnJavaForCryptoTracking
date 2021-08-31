@@ -14,20 +14,20 @@ import java.util.Collection;
  */
 public class CommandDeterminant {
     private static String[] splitMessage;
-    private static ArrayList<String> userCrypto = new ArrayList();
-    public static void setUserCrypto(String ticket) {
-        userCrypto.add(ticket);
-    }
-
-    public static ArrayList<String> getUserCrypto() {
-        return userCrypto;
-    }
+//    private static ArrayList<String> userCrypto = new ArrayList();
+//    public static void setUserCrypto(String ticket) {
+//        userCrypto.add(ticket);
+//    }
+//
+//    public static ArrayList<String> getUserCrypto() {
+//        return userCrypto;
+//    }
 
     public static String[] getSplitMessage() {
         return splitMessage;
     }
     public static String[] split(Message message){
-        String txt = message.getBody();
+        String txt = message.getText();
         txt = txt.replace(","," ");
         txt= txt.replaceAll("\\s+"," ");
 
@@ -36,7 +36,7 @@ public class CommandDeterminant {
     }
 
     public static Command getCommand(Collection<Command> commands, Message message) {
-        String body = message.getBody();
+        String body = message.getText();
 
         for (Command command : commands
         ) {

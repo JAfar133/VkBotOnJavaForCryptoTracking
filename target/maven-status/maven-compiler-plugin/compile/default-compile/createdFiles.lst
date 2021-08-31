@@ -1,7 +1,8 @@
 core\CommandDeterminant.class
 core\commands\AddUserCrypto.class
-core\modules\CryptoParser.class
+core\modules\User.class
 core\CommandManager.class
+core\modules\CryptoParser.class
 core\commands\GetUserCryptoCurse.class
 core\commands\GetCryptoCourse.class
 vk\Event.class
@@ -10,10 +11,15 @@ core\modules\Crypto.class
 core\commands\ServiceCommand.class
 core\commands\GetTicketList.class
 core\commands\DelTicketList.class
+common\LocaleMath.class
+core\commands\Stop.class
 vk\VKManager.class
 core\Commander.class
 vk\Messenger.class
 core\commands\GetStart.class
 core\modules\CryptoList.class
+core\modules\UserList.class
 vk\VKCore.class
+common\Date.class
+core\Command.class
 vk\VKServer.class

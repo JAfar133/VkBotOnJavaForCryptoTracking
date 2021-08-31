@@ -47,7 +47,7 @@ public class CryptoParser {
     private Document getPage() throws IOException {
         Document page;
         String url = "https://ru.investing.com/crypto/currencies";
-        page = Jsoup.parse(new URL(url),3000);
+        page = Jsoup.parse(new URL(url),10000);
         return page;
     }
     public void setCryptoName(Elements elements){

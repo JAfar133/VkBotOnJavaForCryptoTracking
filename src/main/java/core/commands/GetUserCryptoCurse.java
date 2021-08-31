@@ -4,6 +4,7 @@ import com.vk.api.sdk.objects.messages.Message;
 import core.Command;
 import core.CommandDeterminant;
 import core.modules.CryptoParser;
+import core.modules.UserList;
 import vk.VKManager;
 
 import java.io.IOException;
@@ -20,13 +21,13 @@ public class GetUserCryptoCurse extends Command {
     public void exec(Message message) throws IOException {
         SimpleDateFormat onlyHour = new SimpleDateFormat("hh:mm:ss");
         Date date = new Date();
-        ArrayList<String> userTicket = CommandDeterminant.getUserCrypto();
+        UserList userList = VKManager.getUserList();
         CryptoParser cp = new CryptoParser();
         cp.setCryptoPrice(cp.getCryptoPrices());
         cp.setCryptoChanges(cp.getCryptoChanges());
-        new VKManager().sendMessage("ваша крипта на "+onlyHour.format(date)+":\n"+userTicket,message.getUserId());
-        for (String ticket:userTicket) {
-            new VKManager().sendMessage(cp.getCryptoList().getCrypto(ticket).toString(),message.getUserId());
+        new VKManager().sendMessage("ваша крипта на "+onlyHour.format(date)+":\n"+userList.getUser(VKManager.getUserID()).getUserTickets());
+        for (String ticket:userList.getUser(VKManager.getUserID()).getUserTickets()) {
+            new VKManager().sendMessage(cp.getCryptoList().getCrypto(ticket).toString());
         }
     }
 }

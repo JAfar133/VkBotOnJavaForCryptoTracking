@@ -15,9 +15,12 @@ public class CommandManager {
         commands.add(new GetCryptoCourse("Узнать курс"));
         commands.add(new GetStart("Начать"));
         commands.add(new AddUserCrypto("добавить"));
+        commands.add(new AddUserCrypto("Добавить"));
         commands.add(new GetUserCryptoCurse("Узнать свой курс"));
         commands.add(new GetTicketList("Посмотреть"));
         commands.add(new DelTicketList("удалить"));
+        commands.add(new DelTicketList("Удалить"));
+
 
         commands.add(new GetCryptoCourse("1"));
         commands.add(new GetUserCryptoCurse("2"));

@@ -1,1 +1,0 @@
-java -jar bot-for-habr-1.0-SNAPSHOT.jar

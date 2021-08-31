@@ -1,61 +1,32 @@
 package vk;
 
+import com.vk.api.sdk.objects.messages.*;
 import common.Date;
 import core.commands.ServiceCommand;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * @author Arthur Kupriyanov
  */
 public class Event {
-
-    private int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-    private static HashMap<String, HashSet<ServiceCommand>> timedCommands = new HashMap<>();
-    private static HashMap<String, Integer> timeLockList = new HashMap<>();
-
-    public void handlePerDay(){
-
-        for(String time : timedCommands.keySet()) {
-            if (!isTimeLocked(time)) {
-                if (Date.getTimeNow().equals(time)) {
-                    for (ServiceCommand cmd : timedCommands.get(time)) {
-                        cmd.service();
-                    }
-                    lockTime(time);
-                }
-            }
-        }
+    private Keyboard keyboard1 = new Keyboard();
+    public Keyboard getKeyboard1() {
+        return keyboard1;
     }
+public Event() {
 
-    public void addCommand(String time, ServiceCommand cmd){
-        HashSet<ServiceCommand> serviceCommands;
-        if (timedCommands.containsKey(time)){
-            serviceCommands = timedCommands.get(time);
-        } else{
-            serviceCommands = new HashSet<>();
-        }
-        serviceCommands.add(cmd);
-        timedCommands.put(time, serviceCommands);
+    List<List<KeyboardButton>> allKey = new ArrayList<>();
+    List<KeyboardButton> line1 = new ArrayList<>();
+    List<KeyboardButton> line2 = new ArrayList<>();
+
+    line1.add(new KeyboardButton().setAction(new KeyboardButtonAction().setLabel("Начать").setType(TemplateActionTypeNames.TEXT)).setColor(KeyboardButtonColor.POSITIVE));
+    line1.add(new KeyboardButton().setAction(new KeyboardButtonAction().setLabel("Стоп (not working)").setType(TemplateActionTypeNames.TEXT)).setColor(KeyboardButtonColor.POSITIVE));
+    line2.add(new KeyboardButton().setAction(new KeyboardButtonAction().setLabel("1").setType(TemplateActionTypeNames.TEXT)).setColor(KeyboardButtonColor.NEGATIVE));
+    line2.add(new KeyboardButton().setAction(new KeyboardButtonAction().setLabel("2").setType(TemplateActionTypeNames.TEXT)).setColor(KeyboardButtonColor.NEGATIVE));
+    line2.add(new KeyboardButton().setAction(new KeyboardButtonAction().setLabel("3").setType(TemplateActionTypeNames.TEXT)).setColor(KeyboardButtonColor.NEGATIVE));
+    allKey.add(line1);
+    allKey.add(line2);
+    keyboard1.setButtons(allKey);
     }
-
-    private boolean isTimeLocked(String time){
-        if (timeLockList.containsKey(time)) {
-            if (timeLockList.get(time) == dayOfWeek) {
-                return true;
-            } else {
-                timeLockList.remove(time);
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    private void lockTime(String time) {
-        timeLockList.put(time, dayOfWeek);
-    }
-
 }

@@ -4,6 +4,8 @@ package vk;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.messages.Message;
+import core.modules.User;
+import core.modules.UserList;
 
 import java.util.Timer;
 import java.util.concurrent.ExecutorService;
@@ -21,8 +23,7 @@ public class VKServer {
     }
 
     public static void main(String[] args) throws NullPointerException, ApiException, InterruptedException {
-
-
+        new Event();
         System.out.println("Running server...");
         while (true) {
             Thread.sleep(300);
@@ -31,6 +32,7 @@ public class VKServer {
             if (message != null) {
                     ExecutorService exec = Executors.newCachedThreadPool();
                     exec.execute(new Messenger(message));
+
                 }
 
             } catch (ClientException e) {
@@ -38,6 +40,7 @@ public class VKServer {
                 final int RECONNECT_TIME = 10000;
                 System.out.println("Повторное соединение через " + RECONNECT_TIME / 1000 + " секунд");
                 Thread.sleep(RECONNECT_TIME);
+
 
             }
         }

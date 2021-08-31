@@ -15,6 +15,6 @@ public class GetTicketList extends Command {
     @Override
     public void exec(Message message) throws IOException {
         CryptoParser cp = new CryptoParser();
-        new VKManager().sendMessage("Доступная крипта: \n"+cp.getCryptoArrayList(),message.getUserId());
+        new VKManager().sendMessage("Доступная крипта: \n"+cp.getCryptoArrayList());
     }
 }

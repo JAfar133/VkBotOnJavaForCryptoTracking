@@ -2,29 +2,65 @@ package vk;
 
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
+import com.vk.api.sdk.objects.messages.Keyboard;
+import com.vk.api.sdk.objects.messages.Message;
 import com.vk.api.sdk.objects.users.UserXtrCounters;
+import com.vk.api.sdk.objects.users.responses.GetResponse;
 import com.vk.api.sdk.queries.messages.MessagesSendQuery;
+import core.modules.User;
+import core.modules.UserList;
+
+import java.util.Random;
 
 /**
  * @author Arthur Kupriyanov
  */
 public class VKManager {
     public static VKCore vkCore;
+    static int userID;
 
-    static {
-        try {
-            vkCore = new VKCore();
-        } catch (ApiException | ClientException e) {
-            e.printStackTrace();
-        }
+    private static UserList userList = new UserList();
+    public static UserList getUserList() {
+        return userList;
     }
-    public void sendMessage(String msg, int peerId){
+
+    public static int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+
+        if(userID!=0){
+        VKManager.userID = userID;
+        userList.addUser(new User(userID));
+            }
+
+    }
+
+    public void sendMessage(String msg){
+        Random random = new Random();
+        {
+            try {
+                vkCore = new VKCore();
+            } catch (ApiException | ClientException e) {
+                e.printStackTrace();
+            }
+        }
         if (msg == null){
             System.out.println("null");
             return;
         }
         try {
-            vkCore.getVk().messages().send(vkCore.getActor()).peerId(peerId).message(msg).execute();
+            System.out.println(getUserInfo(userID));
+            System.out.println(getSendQuery()+" successful");
+            Keyboard k = new Event().getKeyboard1();
+            int randomid = random.nextInt(10000);
+                vkCore.getVk().messages().send(vkCore.getActor()).message(msg)
+                        .userId(userID)
+                        .randomId(randomid)
+                        .keyboard(k)
+                        .execute();
+
         } catch (ApiException | ClientException e) {
             e.printStackTrace();
         }
@@ -40,7 +76,7 @@ public class VKManager {
      * @return {@link UserXtrCounters} информацию о пользователе
      * @see UserXtrCounters
      */
-    public static UserXtrCounters getUserInfo(int id){
+    public static GetResponse getUserInfo(int id){
         try {
             return vkCore.getVk().users()
                     .get(vkCore.getActor())
